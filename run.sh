@@ -1,11 +1,20 @@
-# Create a temporary container to copy out the database
+#!/bin/bash
+
+# Debug
+echo "Current directory: $(pwd)"
+ls -al
+
+# Ensure the local data directory exists
+mkdir -p ./data
+
+# Create temporary container from image
 docker create --name temp-sqlite jayelinjiaqi/my-sqlite-app:latest
 
-# Copy bmarket.db from Docker image to runner filesystem
+# Copy .db file from the Docker container to local data directory
 docker cp temp-sqlite:/data/bmarket.db ./data/bmarket.db
 
-# Remove temporary container
+# Clean up temporary container
 docker rm temp-sqlite
 
-# Run your ML pipeline script using the extracted database
+# Run the ML pipeline
 python ml_pipeline.py
