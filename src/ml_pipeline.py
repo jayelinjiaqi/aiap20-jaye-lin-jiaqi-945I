@@ -1,3 +1,5 @@
+import sqlite3
+
 # Connect to database
 conn = sqlite3.connect("/data/bmarket.db")
 
