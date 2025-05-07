@@ -1,4 +1,5 @@
 import sqlite3
+import pandas as pd
 
 # Connect to database
 conn = sqlite3.connect("/home/runner/work/aiap20-jaye-lin-jiaqi-945I/aiap20-jaye-lin-jiaqi-945I/data/bmarket.db")
