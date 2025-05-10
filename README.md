@@ -38,9 +38,29 @@ pip install -r requirements.txt
 # Run pipeline
 python src/train_model.py
 </code> </pre>
+
 ---
 
 ## 🔄 Pipeline Flow & Design
+
+GitHub Push / Manual Trigger
+        │
+        ▼
+GitHub Actions Workflow (.yml)
+        │
+        ├── Install Python Dependencies (requirements.txt)
+        └── Execute run.sh script
+                │
+                ▼
+        Docker Container Starts
+                │
+                ├── Download Dataset
+                └── Run Python Scripts:
+                     ├── src/data_preprocessing.py
+                     ├── src/feature_engineering.py
+                     ├── src/train_model.py
+                     └── src/evaluate_model.py
+
 
 ---
 
