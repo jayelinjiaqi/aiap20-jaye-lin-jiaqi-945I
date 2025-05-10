@@ -61,12 +61,109 @@ python src/train_model.py
 
     These findings guided:
 
-    Feature engineering whereby:
-    - Int is extracted from the 'Age' column
-    - The none/null in 'Housing Loan' was replaced with 'unknown'
-    - The none/null in 'Personal Loan' was replaced with 'unknown'
-    - The 'Telephone' and 'Cell' in 'Contact Method' was replaced with 'telephone' and 'cellular' respectively
-
-    Transformation: encoding for categorical variables.
+    Feature engineering (data cleaning, transformation and encoding/mapping for categorical variables).
     
 ---
+
+## 🔧 Feature Processing Summary
+
+### 🧹 Data Cleaning
+
+| Feature                   | Data Cleaning Description                                                           |
+|---------------------------|-------------------------------------------------------------------------------------|
+| `Housing Loan`            | Replaced `'none'` or null to `'cellular'`                                           |
+| `Personal Loan`           | Replaced `'none'` or null to `'cellular'`                                           |
+| `Contact Method`          | Standardized `'Telephone'` to `'telephone'`, `'Cell'` to `'cellular'`               |
+
+### 🔄 Data Transformation
+
+| Feature                   | Transformation Description                                                          |
+|---------------------------|-------------------------------------------------------------------------------------|
+| `Age`                     | Extracted numerical age from string using regex and converted to integer            
+
+### 🔢 Feature Encoding Mapping
+
+#### ✅ Binary Encodings
+
+| Feature               | Original Value | Encoded Value |
+|-----------------------|----------------|---------------|
+| Housing Loan          | `yes`          | 1             |
+|                       | `no`           | 0             |
+|                       | others/null    | -1            |
+| Personal Loan         | `yes`          | 1             |
+|                       | `no`           | 0             |
+|                       | others/null    | -1            |
+| Subscription Status   | `yes`          | 1             |
+|                       | `no`           | 0             |
+|                       | others/null    | -1            |
+| Credit Default        | `yes`          | 1             |
+|                       | `no`           | 0             |
+|                       | others/null    | -1            |
+
+#### ☎️ Contact Method Mapping
+
+| Original Value | Normalized Value | Encoded Value |
+|----------------|------------------|---------------|
+| `Telephone`    | `telephone`      | 1             |
+| `Cell`         | `cellular`       | 2             |
+
+#### 🧑 Occupation Mapping
+
+| Original Value      | Encoded Value |
+|----------------------|---------------|
+| `technician`         | 1             |
+| `blue-collar`        | 2             |
+| `admin.`             | 3             |
+| `housemaid`          | 4             |
+| `retired`            | 5             |
+| `services`           | 6             |
+| `entrepreneur`       | 7             |
+| `unemployed`         | 8             |
+| `management`         | 9             |
+| `self-employed`      | 10            |
+| `student`            | 11            |
+| `unknown`            | -1            |
+
+#### 💍 Marital Status Mapping
+
+| Original Value | Encoded Value |
+|----------------|---------------|
+| `married`      | 1             |
+| `divorced`     | 2             |
+| `single`       | 3             |
+| `unknown`      | -1            |
+
+#### 🎓 Education Level Mapping
+
+| Original Value        | Encoded Value |
+|------------------------|---------------|
+| `illiterate`           | 1             |
+| `basic.4y`             | 2             |
+| `basic.6y`             | 3             |
+| `basic.9y`             | 4             |
+| `high.school`          | 5             |
+| `professional.course`  | 6             |
+| `university.degree`    | 7             |
+| `unknown`              | -1            |
+
+#### 📅 Previous Contact Days
+
+| Original Value | Encoded Value |
+|----------------|---------------|
+| 999            | -1            |
+| All others     | Original value (unchanged) |
+
+---
+
+### 🤖 Model Choices
+
+---
+
+### 📊 Model Evaluation
+
+---
+
+### 🚀 Deployment Considerations
+
+
+
