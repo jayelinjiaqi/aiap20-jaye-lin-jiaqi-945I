@@ -61,7 +61,11 @@ python src/train_model.py
 
     These findings guided:
 
-    Feature selection: selection of meaningful variables.
+    Feature engineering whereby:
+    - Int is extracted from the 'Age' column
+    - The none/null in 'Housing Loan' was replaced with 'unknown'
+    - The none/null in 'Personal Loan' was replaced with 'unknown'
+    - The 'Telephone' and 'Cell' in 'Contact Method' was replaced with 'telephone' and 'cellular' respectively
 
     Transformation: encoding for categorical variables.
     
