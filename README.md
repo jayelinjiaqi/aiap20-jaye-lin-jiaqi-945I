@@ -157,13 +157,66 @@ python src/train_model.py
 
 ### 🤖 Model Choices
 
+The machine learning task is a binary classification problem: predict whether a client will subscribe to a term deposit (yes or no) based on their demographic attributes and prior campaign data.
+
+| Model                        | Justification                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| **Logistic Regression**      | Baseline model to identify linear relationships and feature importance.         |
+| **Random Forest Classifier** | Ensemble method that handles non-linear interactions and robust to outliers.    |
+| **KNN**                      | Classifies potential client based on historical clients. Does not assume        | |                                linearity or normal distribution. Suits our dataset with mixed features.        |
+
 ---
 
 ### 📊 Model Evaluation
 
----
+🧪 Evaluation Metrics
+
+| Metric               | Purpose                                                                                  |
+| -------------------- | ---------------------------------------------------------------------------------------- |
+| **Accuracy**         | Overall correctness, but not reliable on imbalanced datasets.                            |
+| **Precision**        | Measures how many of the predicted positives are actual positives.                       |
+|                        Important when false positives are costly (e.g., unnecessary marketing).                 |
+| **Recall**           | Measures how many actual positives are correctly predicted.                              |
+|                        Important to capture all potential subscribers.                                          |
+| **F1 Score**         | Harmonic mean of precision and recall; balances both concerns.                           |
+| **ROC-AUC Score**    | Measures overall ranking performance of the classifier across thresholds.                |
+|                        High AUC indicates good discrimination between classes.                                  |
+| **Confusion Matrix** | Visual tool to understand false positives and false negatives.                           |
+
+We prioritized F1 Score and ROC-AUC since:
+
+    The dataset is imbalanced (more "no" than "yes"). The goal is to accurately identify likely subscribers (recall) without spamming uninterested users (precision).
 
 ### 🚀 Deployment Considerations
 
+To ensure that the model is reproducible, scalable, and automated, we have integrated the entire pipeline with GitHub Actions and Docker. The following deployment considerations were made:
 
+1. Automated CI/CD Pipeline with GitHub Actions
 
+    A .yml workflow file is defined within the .github/workflows/ directory.
+
+    On each push or pull request to the main branch, the GitHub Action is triggered automatically.
+
+    The workflow executes the run.sh script, which orchestrates the pipeline execution end-to-end — from data retrieval to model evaluation.
+
+2. Containerization with Docker
+
+    Docker was used to retrieve the dataset in the run.sh script. The python scripts are then executed on the GitHub-hosted ubuntu-latest runner which first installs Python and dependencies directly on that virtual machine using pip.
+
+3. Robustness & Fault Tolerance
+
+    Each pipeline step is modular and logged, which allows better tracking of failures.
+
+    GitHub Actions provide built-in logging and artifact storage, which helps monitor model performance over time.
+
+4. Scalability
+
+    This setup allows for easy transition to a cloud-based CI/CD system (e.g., deploying to AWS, Azure, or GCP) without changing the logic.
+
+    Additional models or hyperparameter tuning workflows can be added as new YAML steps or separate scripts.
+
+5. Maintainability & Extensibility
+
+    Since the pipeline is defined through shell and Python scripts, it's easy to add new preprocessing steps, retrain models on updated data, or switch model architectures.
+
+    Updating the dataset or model can be done with minimal code changes.
