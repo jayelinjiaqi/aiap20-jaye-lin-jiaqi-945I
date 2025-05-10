@@ -11,7 +11,7 @@ from sklearn.metrics import roc_auc_score
 # Connect to database
 #conn = sqlite3.connect("/home/runner/work/aiap20-jaye-lin-jiaqi-945I/aiap20-jaye-lin-jiaqi-945I/data/bmarket.db")
 conn = sqlite3.connect("/Users/jayelin/Downloads/docker_image/data/bmarket.db")
-# Fetch all rows from the 'lung_cancer' table
+# Fetch all rows from the 'bank_marketing' table
 cursor = conn.cursor()
 # cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 cursor.execute("SELECT * FROM bank_marketing")
@@ -21,17 +21,13 @@ rows = cursor.fetchall()
 columns = [description[0] for description in cursor.description]  # Get column names
 df = pd.DataFrame(rows, columns=columns)
 
-# Data cleaning
-def yes_no_binary(yes_no_str):
-    
-    if yes_no_str == 'no':
-        return 0
-    elif yes_no_str == 'yes':
-        return 1
-    else:
-        return -1
-    
-def mobile_binary(mobile_str):
+# Feature engineering
+
+# Extract numerical age from string using regex and convert to int for feature 'Age'
+df['Age'] = df['Age'].str.extract(r'(\d+)').astype(int)
+
+# Replace 'Telephone' with 'telephone' and 'Cell' with 'cellular'
+def contact_method_cleaning(mobile_str):
     
     if mobile_str == 'Telephone':
         return 'telephone'
@@ -40,57 +36,31 @@ def mobile_binary(mobile_str):
     else:
         return mobile_str
 
+df['Contact Method'] = df['Contact Method'].apply(contact_method_cleaning)
+
+# Map 'no' to 0, 'yes' to 1 and 'unknown' or NULL to -1
+def yes_no_binary(yes_no_str):
+    
+    if yes_no_str == 'no':
+        return 0
+    elif yes_no_str == 'yes':
+        return 1
+    else:
+        return -1
+
+# Apply yes_no_binary function to features 'Hosing Loan', 'Personal Loan', 'Credit Default' and 'Subscription Status'
 df['Housing Loan'] = df['Housing Loan'].apply(yes_no_binary)
 df['Personal Loan'] = df['Personal Loan'].apply(yes_no_binary)
-df['Subscription Status'] = df['Subscription Status'].apply(yes_no_binary)
 df['Credit Default'] = df['Credit Default'].apply(yes_no_binary)
-df['Contact Method'] = df['Contact Method'].apply(mobile_binary)
-df.head()
+df['Subscription Status'] = df['Subscription Status'].apply(yes_no_binary)
 
-# Feature engineering
-def contact_binary(str):
-    if str == 'telephone':
-        return 1
-    elif str == 'cellular':
-        return 2
+# One-hot encoding to features 'Occupation', 'Marital Status' and 'Contact Method'
+df = pd.get_dummies(df, columns=['Occupation'], prefix='occupation')
+df = pd.get_dummies(df, columns=['Marital Status'], prefix='marital_status')
+df = pd.get_dummies(df, columns=['Contact Method'], prefix='contact_method')
 
-def occupation_binary(str):
-    if str == 'technician':
-        return 1
-    elif str == 'blue-collar':
-        return 2
-    elif str == 'admin.':
-        return 3
-    elif str == 'housemaid':
-        return 4
-    elif str == 'retired':
-        return 5
-    elif str == 'services':
-        return 6
-    elif str == 'entrepreneur':
-        return 7
-    elif str == 'unemployed':
-        return 8
-    elif str == 'management':
-        return 9
-    elif str == 'self-employed':
-        return 10
-    elif str == 'student':
-        return 11
-    elif str == 'unknown':
-        return -1
-    
-def marital_binary(str):
-    if str == 'married':
-        return 1
-    elif str == 'divorced':
-        return 2
-    elif str == 'single':
-        return 3
-    elif str == 'unknown':
-        return -1
-
-def education_binary(str):
+# Mapping for feature 'Education_Level'
+def education_mapping(str):
     if str == 'illiterate':
         return 1
     elif str == 'basic.4y':
@@ -107,20 +77,19 @@ def education_binary(str):
         return 7
     elif str == 'unknown':
         return -1
-    
-def previous_contact_days_binary(str):
+
+# Apply education_mapping function to feature 'Education Level'
+df['Education Level'] = df['Education Level'].apply(education_mapping)
+
+# Map 999 in feature 'Previous Contact Days' to -1 as 999 means no prior contact
+def previous_contact_days_mapping(str):
     if str == 999:
         return -1
     else:
         return str
+# Apple previous_Contact_days_mapping function to 'Previous Contact Days'
+df['Previous Contact Days'] = df['Previous Contact Days'].apply(previous_contact_days_mapping)
 
-df['Age'] = df['Age'].str.extract(r'(\d+)').astype(int)
-df['Contact Method'] = df['Contact Method'].apply(contact_binary)
-df['Occupation'] = df['Occupation'].apply(occupation_binary)
-df['Marital Status'] = df['Marital Status'].apply(marital_binary)
-df['Education Level'] = df['Education Level'].apply(education_binary)
-df['Previous Contact Days'] = df['Previous Contact Days'].apply(previous_contact_days_binary)
-df.head(10)
 
 # Build machine learning models and evaluate with AUC metric
 
