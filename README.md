@@ -15,14 +15,14 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
 
 <pre> <code> 
   . 
-  ├── .github/ # GitHub workflows or configuration files 
-  ├── src/ # Python scripts for each pipeline step 
+  ├── .github/     # GitHub workflow configuration file 
+  ├── src/         # Python scripts for each pipeline step 
   │ ├── data_preprocessing.py 
   │ ├── feature_engineering.py 
   │ ├── train_model.py 
   │ └── evaluate_model.py 
-  ├── README.md # Project documentation 
-  ├── eda.ipynb # Jupyter notebook for exploratory data analysis 
-  ├── requirements.txt # Python dependencies 
-  └── run.sh # Shell script to execute the pipeline 
+  ├── README.md          # Project documentation 
+  ├── eda.ipynb          # Jupyter notebook for exploratory data analysis 
+  ├── requirements.txt   # Python dependencies 
+  └── run.sh             # Shell script to execute the pipeline 
 </code> </pre>
