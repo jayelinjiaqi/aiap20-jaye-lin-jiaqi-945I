@@ -48,9 +48,16 @@ python src/train_model.py
 
     Key Summary:
 
-    There are 41188 rows and 12 columns
-    The data type for age is object
-    The unique values for 'Occupation' are 'illiterate', 'basic.4y', 'basic.6y', 'basic.9y', 'high.school', 'professional.course', 'university.degree' and'unknown':
+    - There are 41188 rows and 12 columns
+    - The data type for age is object
+    - The 12 unique values for 'Occupation' are 'technician', 'blue-collar', 'admin.', 'housemaid', 'retired', 'services', 'entrepreneur', 'unemployed', 'management', 'self-employed', 'student' and 'unknown'
+    - The 4 unique values for 'Marital Status' are 'married', 'divorced', 'single' and 'unknown'
+    - The 8 unique values for 'Education' are 'illiterate', 'basic.4y', 'basic.6y', 'basic.9y', 'high.school', 'professional.course', 'university.degree' and 'unknown'
+    - The 4 unqiue values for 'Credit Default' are 'yes', 'no' and 'None'
+    - The 4 unqiue values for 'Housing Loan' are 'yes', 'no' and 'None'
+    - The 4 unqiue values for 'Personal Loan' are 'yes', 'no' and 'None'
+    - The 4 unqiue values for 'Contact Method' are 'cellular', 'Cell', 'telephone' and 'Telephone'
+    - The 2 unqiue values for 'Subscription Status' are 'yes' and 'no'
 
     These findings guided:
 
