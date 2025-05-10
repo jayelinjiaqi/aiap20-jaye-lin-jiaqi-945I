@@ -12,14 +12,5 @@
 This repository contains the implementation of a machine learning pipeline designed for AI-Vive-Banking to develop predictive models to enhance resource allocation and customer engagement by accurately identifying clients that are most likely to respond positively to campaigns.
 
 Project root folder: `aiap20-jaye-lin-jiaqi-945I`
-.
-├── .github
-├── src/                    # Python scripts for each pipeline step
-│   ├── data_preprocessing.py
-│   ├── feature_engineering.py
-│   ├── train_model.py
-│   └── evaluate_model.py
-├── README.md               # Project documentation
-├── eda.ipynb               # Jupyter notebooks for EDA
-├── requirements.txt        # Python dependencies
-└── run.sh                  # Python dependencies
+
+<pre> <code> . ├── .github/ # GitHub workflows or configuration files ├── src/ # Python scripts for each pipeline step │ ├── data_preprocessing.py │ ├── feature_engineering.py │ ├── train_model.py │ └── evaluate_model.py ├── README.md # Project documentation ├── eda.ipynb # Jupyter notebook for exploratory data analysis ├── requirements.txt # Python dependencies └── run.sh # Shell script to execute the pipeline </code> </pre>
