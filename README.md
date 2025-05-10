@@ -43,6 +43,7 @@ python src/train_model.py
 
 ## 🔄 Pipeline Flow & Design
 
+<pre> <code> 
 GitHub Push / Manual Trigger
         │
         ▼
@@ -60,7 +61,7 @@ GitHub Actions Workflow (.yml)
                      ├── src/feature_engineering.py
                      ├── src/train_model.py
                      └── src/evaluate_model.py
-
+</code> </pre>
 
 ---
 
