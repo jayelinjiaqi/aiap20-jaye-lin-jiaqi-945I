@@ -32,7 +32,7 @@ def train_models(db_path, table_name):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
     models = {
-        'RandomForest': RandomForestClassifier(random_state=42, n_estimators=300, max_depth=30, max_features='sqrt', min_samples_leaf=1),
+        'RandomForest': RandomForestClassifier(random_state=42, class_weight='balanced', n_estimators=300, max_depth=30, max_features='sqrt', min_samples_leaf=1),
         'LogisticRegression': LogisticRegression(class_weight='balanced', max_iter=700, C=10, solver='liblinear', penalty='l1'),
         'KNN': KNeighborsClassifier(n_neighbors=20, weights='uniform', metric='manhattan')
     }

@@ -71,7 +71,7 @@ GitHub Actions Workflow (.yml)
     Key Summary:
 
     - There are 41188 rows and 12 columns
-    - The data type for age is object
+    - The data type for age is object. Numerical 
     - The 12 unique values for 'Occupation' are 'technician', 'blue-collar', 'admin.', 'housemaid', 'retired', 'services', 'entrepreneur', 'unemployed', 'management', 'self-employed', 'student' and 'unknown'
     - The 4 unique values for 'Marital Status' are 'married', 'divorced', 'single' and 'unknown'
     - The 8 unique values for 'Education' are 'illiterate', 'basic.4y', 'basic.6y', 'basic.9y', 'high.school', 'professional.course', 'university.degree' and 'unknown'
@@ -81,19 +81,18 @@ GitHub Actions Workflow (.yml)
     - The 4 unqiue values for 'Contact Method' are 'cellular', 'Cell', 'telephone' and 'Telephone'
     - The 2 unqiue values for 'Subscription Status' are 'yes' and 'no'
 
-    These findings guided:
+    - The dataset is imbalanced with more 'Subscription Status' of 'no'. 
+      There are 36548 records of 'no' and 4640 records of 'yes'.
+    - The dataset also contains a higher proportion of blue-collar workers, technicians and admin.
+    - 'Campaign Calls' contains negative values. Could be data entry error.
+    - There are outliers in the distribution of 'Age' with a significant portion being above 130 years old.
 
+    These findings guided:
     Feature engineering (data cleaning, transformation and encoding/mapping for categorical variables).
     
 ---
 
 ## 🔧 Feature Processing Summary
-
-### 🧹 Data Cleaning
-
-| Feature                   | Data Cleaning Description                                                   |
-|---------------------------|-----------------------------------------------------------------------------|
-| `Contact Method`          | Standardized `Telephone` to `telephone`, `Cell` to `cellular`               |
 
 ### 🔄 Data Transformation
 
@@ -101,23 +100,29 @@ GitHub Actions Workflow (.yml)
 |---------------------------|-------------------------------------------------------------------------------------|
 | `Age`                     | Extracted numerical age from string using regex and converted to integer            |
 
+### 🧹 Data Cleaning
+
+| Feature                   | Data Cleaning Description                                                   |
+|---------------------------|-----------------------------------------------------------------------------|
+| `Contact Method`          | Standardized `Telephone` to `telephone`, `Cell` to `cellular`               |
+
 ### 🔢 Feature Encoding Mapping
 
 #### ✅ Binary Encodings
 
-| Feature               | Original Value          | Encoded Value |
-|-----------------------|-------------------------|---------------|
-| Housing Loan          | `yes`                   | 1             |
-|                       | `no`                    | 0             |
-|                       | `None` / `'unknown'`    | -1            |
-| Personal Loan         | `yes`                   | 1             |
-|                       | `no`                    | 0             |
-|                       | `None` / `'unknown'`    | -1            |
-| Subscription Status   | `yes`                   | 1             |
-|                       | `no`                    | 0             |
-| Credit Default        | `yes`                   | 1             |
-|                       | `no`                    | 0             |
-|                       | `'unknown'`             | -1            |
+| Feature               | Original Value          | Encoded Value   |
+|-----------------------|-------------------------|-----------------|
+| Housing Loan          | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `None` / `'unknown'`    | `-1`            |
+| Personal Loan         | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `None` / `'unknown'`    | `-1`            |
+| Subscription Status   | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+| Credit Default        | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `'unknown'`             | `-1`            |
 
 #### ☎️ Contact Method Mapping
 
@@ -182,8 +187,7 @@ The machine learning task is a binary classification problem: predict whether a 
 | ---------------------------- | ------------------------------------------------------------------------------- |
 | **Logistic Regression**      | Baseline model to identify linear relationships and feature importance.         |
 | **Random Forest Classifier** | Ensemble method that handles non-linear interactions and robust to outliers.    |
-| **KNN**                      | Classifies potential client based on historical clients. Does not assume        |
-|                                linearity or normal distribution. Suits our dataset with mixed features.        |
+| **KNN**                      | Classifies potential client based on historical clients. Does not assume linearity or normal distribution. Suits dataset with mixed features.                                                       |
 
 ---
 
