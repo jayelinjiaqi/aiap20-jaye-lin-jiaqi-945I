@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-#from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
 import statistics
 from sklearn.metrics import roc_auc_score
@@ -90,6 +90,8 @@ def previous_contact_days_mapping(str):
 # Apple previous_Contact_days_mapping function to 'Previous Contact Days'
 df['Previous Contact Days'] = df['Previous Contact Days'].apply(previous_contact_days_mapping)
 
+# Drop columns to avoid perfect correlation
+df = df.drop(['marital_status_single', 'contact_method_telephone'], axis=1)
 
 # Build machine learning models and evaluate with AUC metric
 

@@ -17,7 +17,7 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
   . 
   ├── .github/     # GitHub workflow configuration file 
   ├── src/         # Python scripts for each pipeline step 
-  │ ├── data_preprocessing.py 
+  │ ├── load_data_from_db.py 
   │ ├── feature_engineering.py 
   │ ├── train_model.py 
   │ └── evaluate_model.py 
