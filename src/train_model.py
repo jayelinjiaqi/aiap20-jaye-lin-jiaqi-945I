@@ -6,6 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, precision_recall_curve
 import argparse
+import numpy as np
 
 def evaluate_model(model, X_test, y_test):
     preds = model.predict(X_test)
