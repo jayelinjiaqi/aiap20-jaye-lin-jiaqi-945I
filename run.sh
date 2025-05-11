@@ -17,4 +17,4 @@ docker cp temp-sqlite:/data/bmarket.db ./data/bmarket.db
 docker rm temp-sqlite
 
 # Run the ML pipeline
-python src/ml_pipeline.py
+python src/train_model.py
