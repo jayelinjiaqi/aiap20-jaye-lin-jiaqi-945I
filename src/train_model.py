@@ -47,6 +47,27 @@ def train_models(db_path, table_name):
 
     return trained_models
 
+# Weighted average ensemble learning 
+def evaluate_ensemble(models, X_test, y_test):
+    # Get prediction probabilities
+    preds_lr = models['LogisticRegression'].predict_proba(X_test)[:, 1]
+    preds_rf = models['RandomForest'].predict_proba(X_test)[:, 1]
+    preds_knn = models['KNN'].predict_proba(X_test)[:, 1]
+
+    # Weighted average
+    ensemble_proba = (0.5 * preds_lr) + (0.25 * preds_rf) + (0.25 * preds_knn)
+    
+    # Threshold to get binary predictions
+    ensemble_preds = (ensemble_proba >= 0.5).astype(int)
+
+    print(f"\n--- Evaluation: Weighted Ensemble (LR=50%, RF=25%, KNN=25%) ---")
+    print('AUC-ROC:', roc_auc_score(y_test, ensemble_proba))
+    print('Accuracy:', accuracy_score(y_test, ensemble_preds))
+    print('Precision:', precision_score(y_test, ensemble_preds))
+    print('Recall:', recall_score(y_test, ensemble_preds))
+    print('F1 Score:', f1_score(y_test, ensemble_preds))
+    print('Confusion Matrix:\n', confusion_matrix(y_test, ensemble_preds))
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--db_path', required=True, help='Path to the SQLite database file')
