@@ -202,7 +202,17 @@ The machine learning task is a binary classification problem: predict whether a 
 | **ROC-AUC Score**    | Measures overall ranking performance of the classifier across thresholds. High AUC indicates good discrimination between classes.                                                                    |
 | **Confusion Matrix** | Visual tool to understand false positives and false negatives.                           |
 
-    The ROC-AUC Score is mainly used to evalate the models as it is a metric that evaluates the model's ability to discriminate between the positive and negative classes. A model with a high AUC is good at putting the clients who will actually respond positively towards the top of that list, and the clients who will not respond towards the bottom. This will allow AI-Vive-Banking to optimize its marketing campaigns by accurately identifying which clients are most likely to respond positively.
+The ROC-AUC Score is mainly used to evalate the models as it is a metric that evaluates the model's ability to discriminate between the positive and negative classes. 
+
+A model with a high AUC is good at putting the clients who will actually respond positively towards the top of that list, and the clients who will not respond towards the bottom. 
+
+This will allow AI-Vive-Banking to optimize its marketing campaigns by accurately identifying which clients are most likely to respond positively.
+
+However, at the same time, we also try to maximise precision and recall, as these metrics are important to help assess the model’s effectiveness in real-world deployment.
+
+Precision ensures that when the model predicts a client will respond positively, it is correct most of the time. This helps minimize the number of false positives, which is important for reducing wasted marketing efforts and avoiding the risk of annoying uninterested clients.
+
+Recall, on the other hand, indicates how well the model is able to identify all the clients who are likely to respond positively. A high recall means that fewer potential clients are missed.
 
 ### 🚀 Deployment Considerations
 
