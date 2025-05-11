@@ -88,8 +88,8 @@ def feature_engineering(db_path, table_name):
     df['Age'] = df['Age'].str.extract(r'(\d+)').astype(int)
 
     # Remove outliers of 'Age' using IQR
-    lower_bound = df['Age'].quantile(0.05)
-    upper_bound = df['Age'].quantile(0.95)
+    lower_bound = df['Age'].quantile(0.01)
+    upper_bound = df['Age'].quantile(0.99)
 
     df = df[(df['Age'] > lower_bound) & (df['Age'] < upper_bound)]
 
