@@ -87,6 +87,12 @@ def feature_engineering(db_path, table_name):
     # Extract numerical age from feature - 'Age'
     df['Age'] = df['Age'].str.extract(r'(\d+)').astype(int)
 
+    # Remove outliers of 'Age' using IQR
+    lower_bound = df['Age'].quantile(0.05)
+    upper_bound = df['Age'].quantile(0.95)
+
+    df = df[(df['Age'] > lower_bound) & (df['Age'] < upper_bound)]
+
     # Feature: 'Contact Method' - Clean the values
     df['Contact Method'] = df['Contact Method'].apply(contact_method_cleaning)
 
