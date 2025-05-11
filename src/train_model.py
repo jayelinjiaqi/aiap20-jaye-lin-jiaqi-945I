@@ -24,7 +24,7 @@ def evaluate_model(model, X_test, y_test):
 def train_models(db_path, table_name):
     # Load and preprocess data
     df = load_data_from_db(db_path, table_name)
-    df = feature_engineering(df)
+    df = df = feature_engineering(db_path, table_name)
 
     X = df.drop(columns='Subscription Status')
     y = df['Subscription Status']
