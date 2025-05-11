@@ -45,6 +45,9 @@ def train_models(db_path, table_name):
         evaluate_model(model, X_test, y_test)
         trained_models[name] = model
 
+    # Call ensemble function
+    evaluate_ensemble(trained_models, X_test, y_test)
+
     return trained_models
 
 # Weighted average ensemble learning 
