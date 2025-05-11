@@ -22,19 +22,7 @@ def train_models(db_path, table_name):
 
     trained_models = {}
 
-    for name, model in models.items():
-        model.fit(X_train, y_train)
-        if hasattr(model, "predict_proba"):
-            preds_proba = model.predict_proba(X_test)[:, 1]
-        else:
-            preds_proba = None
-
-        trained_models[name] = {
-            'model': model,
-            'X_test': X_test,
-            'y_test': y_test,
-            'preds_proba': preds_proba
-        }
-
     return trained_models
+
+
 

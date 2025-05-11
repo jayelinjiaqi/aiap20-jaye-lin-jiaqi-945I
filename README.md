@@ -37,7 +37,7 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
 pip install -r requirements.txt
 
 # Run pipeline
-python src/train_model.py
+python src/main.py
 </code> </pre>
 
 ---
@@ -91,88 +91,85 @@ GitHub Actions Workflow (.yml)
 
 ### 🧹 Data Cleaning
 
-| Feature                   | Data Cleaning Description                                                           |
-|---------------------------|-------------------------------------------------------------------------------------|
-| `Housing Loan`            | Replaced `'none'` or null to `'cellular'`                                           |
-| `Personal Loan`           | Replaced `'none'` or null to `'cellular'`                                           |
-| `Contact Method`          | Standardized `'Telephone'` to `'telephone'`, `'Cell'` to `'cellular'`               |
+| Feature                   | Data Cleaning Description                                                   |
+|---------------------------|-----------------------------------------------------------------------------|
+| `Contact Method`          | Standardized `Telephone` to `telephone`, `Cell` to `cellular`               |
 
 ### 🔄 Data Transformation
 
 | Feature                   | Transformation Description                                                          |
 |---------------------------|-------------------------------------------------------------------------------------|
-| `Age`                     | Extracted numerical age from string using regex and converted to integer            
+| `Age`                     | Extracted numerical age from string using regex and converted to integer            |
 
 ### 🔢 Feature Encoding Mapping
 
 #### ✅ Binary Encodings
 
-| Feature               | Original Value | Encoded Value |
-|-----------------------|----------------|---------------|
-| Housing Loan          | `yes`          | 1             |
-|                       | `no`           | 0             |
-|                       | others/null    | -1            |
-| Personal Loan         | `yes`          | 1             |
-|                       | `no`           | 0             |
-|                       | others/null    | -1            |
-| Subscription Status   | `yes`          | 1             |
-|                       | `no`           | 0             |
-|                       | others/null    | -1            |
-| Credit Default        | `yes`          | 1             |
-|                       | `no`           | 0             |
-|                       | others/null    | -1            |
+| Feature               | Original Value          | Encoded Value |
+|-----------------------|-------------------------|---------------|
+| Housing Loan          | `yes`                   | 1             |
+|                       | `no`                    | 0             |
+|                       | `None` / `'unknown'`    | -1            |
+| Personal Loan         | `yes`                   | 1             |
+|                       | `no`                    | 0             |
+|                       | `None` / `'unknown'`    | -1            |
+| Subscription Status   | `yes`                   | 1             |
+|                       | `no`                    | 0             |
+| Credit Default        | `yes`                   | 1             |
+|                       | `no`                    | 0             |
+|                       | `'unknown'`             | -1            |
 
 #### ☎️ Contact Method Mapping
 
-| Original Value | Normalized Value | Encoded Value |
-|----------------|------------------|---------------|
-| `Telephone`    | `telephone`      | 1             |
-| `Cell`         | `cellular`       | 2             |
+| Original Value   | Normalized Value   | Encoded Value |
+|------------------|--------------------|---------------|
+| `'Telephone'`    | `'telephone'`      | `1`           |
+| `'Cell'`         | `'cellular'`       | `2`           |
 
 #### 🧑 Occupation Mapping
 
-| Original Value      | Encoded Value |
-|----------------------|---------------|
-| `technician`         | 1             |
-| `blue-collar`        | 2             |
-| `admin.`             | 3             |
-| `housemaid`          | 4             |
-| `retired`            | 5             |
-| `services`           | 6             |
-| `entrepreneur`       | 7             |
-| `unemployed`         | 8             |
-| `management`         | 9             |
-| `self-employed`      | 10            |
-| `student`            | 11            |
-| `unknown`            | -1            |
+| Original Value         | Encoded Value |
+|------------------------|---------------|
+| `'technician'`         | `1`           |
+| `'blue-collar'`        | `2`           |
+| `'admin.'`             | `3`           |
+| `'housemaid'`          | `4`           |
+| `'retired'`            | `5`           |
+| `'services'`           | `6`           |
+| `'entrepreneur'`       | `7`           |
+| `'unemployed'`         | `8`           |
+| `'management'`         | `9`           |
+| `'self-employed'`      | `10`          |
+| `'student'`            | `11`          |
+| `'unknown'`            | `-1`          |
 
 #### 💍 Marital Status Mapping
 
-| Original Value | Encoded Value |
-|----------------|---------------|
-| `married`      | 1             |
-| `divorced`     | 2             |
-| `single`       | 3             |
-| `unknown`      | -1            |
+| Original Value   | Encoded Value |
+|------------------|---------------|
+| `'married'`      | `1`           |
+| `'divorced'`     | `2`           |
+| `'single'`       | `3`           |
+| `'unknown'`      | `-1`          |
 
 #### 🎓 Education Level Mapping
 
-| Original Value        | Encoded Value |
-|------------------------|---------------|
-| `illiterate`           | 1             |
-| `basic.4y`             | 2             |
-| `basic.6y`             | 3             |
-| `basic.9y`             | 4             |
-| `high.school`          | 5             |
-| `professional.course`  | 6             |
-| `university.degree`    | 7             |
-| `unknown`              | -1            |
+| Original Value           | Encoded Value   |
+|--------------------------|-----------------|
+| `'illiterate'`           | `1`             |
+| `'basic.4y'`             | `2`             |
+| `'basic.6y'`             | `3`             |
+| `'basic.9y'`             | `4`             |
+| `'high.school'`          | `5`             |
+| `'professional.course'`  | `6`             |
+| `'university.degree'`    | `7`             |
+| `'unknown'`              | `-1`            |
 
 #### 📅 Previous Contact Days
 
-| Original Value | Encoded Value |
-|----------------|---------------|
-| 999            | -1            |
+| Original Value | Encoded Value              |
+|----------------|----------------------------|
+| `999`          | `-1`                       |
 | All others     | Original value (unchanged) |
 
 ---
@@ -196,27 +193,23 @@ The machine learning task is a binary classification problem: predict whether a 
 
 | Metric               | Purpose                                                                                  |
 | -------------------- | ---------------------------------------------------------------------------------------- |
-| **Accuracy**         | Overall correctness, but not reliable on imbalanced datasets.                            |
-| **Precision**        | Measures how many of the predicted positives are actual positives.                       |
-|                        Important when false positives are costly (e.g., unnecessary marketing).                 |
-| **Recall**           | Measures how many actual positives are correctly predicted.                              |
-|                        Important to capture all potential subscribers.                                          |
+| **Accuracy**         | Overall correctness. Proportion of correctly classified instances (both positive and negative) out of total number of instances.                                                                       |
+| **Precision**        | Measures how many of the predicted positives are actual positives.                                                                                                        |
+| **Recall**           | Measures how many actual positives are correctly predicted.                                                                                                        |
 | **F1 Score**         | Harmonic mean of precision and recall; balances both concerns.                           |
 | **ROC-AUC Score**    | Measures overall ranking performance of the classifier across thresholds.                |
 |                        High AUC indicates good discrimination between classes.                                  |
 | **Confusion Matrix** | Visual tool to understand false positives and false negatives.                           |
 
-We prioritized F1 Score and ROC-AUC since:
-
-    The dataset is imbalanced (more "no" than "yes"). The goal is to accurately identify likely subscribers (recall) without spamming uninterested users (precision).
+    The ROC-AUC Score is mainly used to evalate the models as it is a metric that evaluates the model's ability to discriminate between the positive and negative classes. A model with a high AUC is good at putting the clients who will actually respond positively towards the top of that list, and the clients who will not respond towards the bottom. This will allow AI-Vive-Banking to optimize its marketing campaigns by accurately identifying which clients are most likely to respond positively.
 
 ### 🚀 Deployment Considerations
 
-To ensure that the model is reproducible, scalable, and automated, we have integrated the entire pipeline with GitHub Actions and Docker. The following deployment considerations were made:
+To ensure that the model is reproducible, scalable, and automated, the following deployment considerations were made:
 
 1. Automated CI/CD Pipeline with GitHub Actions
 
-    A .yml workflow file is defined within the .github/workflows/ directory.
+    A .yml workflow file is defined within the .github/workflows/ directory to installs Python and its dependencies specified in the requirements.txt on the virtual machine using pip.
 
     On each push or pull request to the main branch, the GitHub Action is triggered automatically.
 
@@ -224,7 +217,7 @@ To ensure that the model is reproducible, scalable, and automated, we have integ
 
 2. Containerization with Docker
 
-    Docker was used to retrieve the dataset in the run.sh script. The python scripts are then executed on the GitHub-hosted ubuntu-latest runner which first installs Python and dependencies directly on that virtual machine using pip.
+    The run.sh script will first retrieve the dataset using Docker and then execute the python scripts in the src folder.
 
 3. Robustness & Fault Tolerance
 
@@ -241,5 +234,3 @@ To ensure that the model is reproducible, scalable, and automated, we have integ
 5. Maintainability & Extensibility
 
     Since the pipeline is defined through shell and Python scripts, it's easy to add new preprocessing steps, retrain models on updated data, or switch model architectures.
-
-    Updating the dataset or model can be done with minimal code changes.
