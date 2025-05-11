@@ -19,9 +19,7 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
   ├── src/         # Python scripts for each pipeline step 
   │ ├── load_data_from_db.py 
   │ ├── feature_engineering.py 
-  │ ├── train_model.py 
-  │ ├── evaluate_model.py 
-  │ └── main.py 
+  │ └── train_model.py 
   ├── README.md          # Project documentation 
   ├── eda.ipynb          # Jupyter notebook for exploratory data analysis 
   ├── requirements.txt   # Python dependencies 
@@ -201,8 +199,7 @@ The machine learning task is a binary classification problem: predict whether a 
 | **Precision**        | Measures how many of the predicted positives are actual positives.                                                                                                        |
 | **Recall**           | Measures how many actual positives are correctly predicted.                                                                                                        |
 | **F1 Score**         | Harmonic mean of precision and recall; balances both concerns.                           |
-| **ROC-AUC Score**    | Measures overall ranking performance of the classifier across thresholds.                |
-|                        High AUC indicates good discrimination between classes.                                  |
+| **ROC-AUC Score**    | Measures overall ranking performance of the classifier across thresholds. High AUC indicates good discrimination between classes.                                                                    |
 | **Confusion Matrix** | Visual tool to understand false positives and false negatives.                           |
 
     The ROC-AUC Score is mainly used to evalate the models as it is a metric that evaluates the model's ability to discriminate between the positive and negative classes. A model with a high AUC is good at putting the clients who will actually respond positively towards the top of that list, and the clients who will not respond towards the bottom. This will allow AI-Vive-Banking to optimize its marketing campaigns by accurately identifying which clients are most likely to respond positively.
