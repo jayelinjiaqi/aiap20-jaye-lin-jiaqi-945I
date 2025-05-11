@@ -20,7 +20,8 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
   │ ├── load_data_from_db.py 
   │ ├── feature_engineering.py 
   │ ├── train_model.py 
-  │ └── evaluate_model.py 
+  │ ├── evaluate_model.py 
+  │ └── main.py 
   ├── README.md          # Project documentation 
   ├── eda.ipynb          # Jupyter notebook for exploratory data analysis 
   ├── requirements.txt   # Python dependencies 
