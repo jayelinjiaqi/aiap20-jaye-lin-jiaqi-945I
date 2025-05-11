@@ -184,7 +184,8 @@ The machine learning task is a binary classification problem: predict whether a 
 | ---------------------------- | ------------------------------------------------------------------------------- |
 | **Logistic Regression**      | Baseline model to identify linear relationships and feature importance.         |
 | **Random Forest Classifier** | Ensemble method that handles non-linear interactions and robust to outliers.    |
-| **KNN**                      | Classifies potential client based on historical clients. Does not assume        | |                                linearity or normal distribution. Suits our dataset with mixed features.        |
+| **KNN**                      | Classifies potential client based on historical clients. Does not assume        |
+|                                linearity or normal distribution. Suits our dataset with mixed features.        |
 
 ---
 
