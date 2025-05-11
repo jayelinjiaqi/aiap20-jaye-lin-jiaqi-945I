@@ -56,7 +56,7 @@ def train_and_evaluate_model(db_path, table_name):
     print(conf_matrix)
 
 if __name__ == '__main__':
-    db_path = "/Users/jayelin/Downloads/docker_image/data/bmarket.db"
+    db_path = "/home/runner/work/aiap20-jaye-lin-jiaqi-945I/aiap20-jaye-lin-jiaqi-945I/data/bmarket.db"
     table_name = "bank_marketing"
     
     # Train and evaluate the model
