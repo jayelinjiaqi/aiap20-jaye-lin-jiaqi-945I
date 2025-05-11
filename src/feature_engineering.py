@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from load_data_from_db import load_data_from_db
 
 def contact_method_cleaning(mobile_str):
     """
@@ -70,28 +71,31 @@ def previous_contact_days_mapping(contact_days):
     """
     return -1 if contact_days == 999 else contact_days
 
-def feature_engineering(df):
+def feature_engineering(db_path, table_name):
     """
-    Apply various feature engineering techniques on the DataFrame.
+    Loads data from DB and applies feature engineering.
     
     Args:
-    - df: Pandas DataFrame containing the raw data.
+    - db_path (str): Path to the SQLite DB
+    - table_name (str): Table name
     
     Returns:
-    - df: Updated DataFrame after feature engineering.
+    - df: Transformed DataFrame
     """
+    df = load_data_from_db(db_path, table_name)
+
     # Extract numerical age from feature - 'Age'
     df['Age'] = df['Age'].str.extract(r'(\d+)').astype(int)
-    
+
     # Feature: 'Contact Method' - Clean the values
     df['Contact Method'] = df['Contact Method'].apply(contact_method_cleaning)
-    
+
     # Apply yes_no_binary for categorical features
     df['Housing Loan'] = df['Housing Loan'].apply(yes_no_binary)
     df['Personal Loan'] = df['Personal Loan'].apply(yes_no_binary)
     df['Credit Default'] = df['Credit Default'].apply(yes_no_binary)
     df['Subscription Status'] = df['Subscription Status'].apply(yes_no_binary)
-    
+
     # One-hot encoding for categorical features
     df = pd.get_dummies(df, columns=['Occupation'], prefix='occupation')
     df = pd.get_dummies(df, columns=['Marital Status'], prefix='marital_status')
@@ -99,13 +103,13 @@ def feature_engineering(df):
     
     # Apply education_mapping for 'Education Level'
     df['Education Level'] = df['Education Level'].apply(education_mapping)
-    
+
     # Apply previous_contact_days_mapping for 'Previous Contact Days'
     df['Previous Contact Days'] = df['Previous Contact Days'].apply(previous_contact_days_mapping)
-    
+
     # Apply normalization to 'Age' using MinMaxScaler
-    scaler = MinMaxScaler()
-    df['Age_Normalized'] = scaler.fit_transform(df[['Age']])
+    #scaler = MinMaxScaler()
+    #df['Age_Normalized'] = scaler.fit_transform(df[['Age']])
     
     # Drop columns with perfect correlation
     df = df.drop(['marital_status_single', 'contact_method_telephone'], axis=1)
