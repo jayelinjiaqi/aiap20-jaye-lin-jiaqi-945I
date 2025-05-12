@@ -51,17 +51,13 @@ GitHub Push / Manual Trigger
 GitHub Actions Workflow (.yml)
         │
         ├── Install Python Dependencies (requirements.txt)
-        └── Execute run.sh script
-                │
-                ▼
-        Docker Container Starts
-                │
-                ├── Download Dataset
-                └── Run Python Scripts:
-                     ├── src/data_preprocessing.py
-                     ├── src/feature_engineering.py
-                     ├── src/train_model.py
-                     └── src/evaluate_model.py
+        └── Execute run.sh Script
+              │
+              ├── Copy bmarket.db from Docker Image
+              └── Run Python Script:
+                    └── src/train_model.py
+                          ├── Imports load_data_from_db.py
+                          └── Imports feature_engineering.py
 </code> </pre>
 
 ---
