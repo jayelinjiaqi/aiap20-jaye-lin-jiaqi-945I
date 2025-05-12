@@ -1,5 +1,4 @@
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 from load_data_from_db import load_data_from_db
 
 def contact_method_cleaning(mobile_str):
@@ -112,10 +111,6 @@ def feature_engineering(db_path, table_name):
 
     # Apply previous_contact_days_mapping for 'Previous Contact Days'
     df['Previous Contact Days'] = df['Previous Contact Days'].apply(previous_contact_days_mapping)
-
-    # Apply normalization to 'Age' using MinMaxScaler
-    #scaler = MinMaxScaler()
-    #df['Age_Normalized'] = scaler.fit_transform(df[['Age']])
     
     # Drop columns with perfect correlation
     df = df.drop(['marital_status_single', 'contact_method_telephone'], axis=1)
