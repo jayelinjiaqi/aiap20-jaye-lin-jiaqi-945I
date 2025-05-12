@@ -30,13 +30,15 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
 
 ## 🛠️ Executing the pipeline
 
-<pre> <code> 
-# Install dependencies
-pip install -r requirements.txt
+The pipeline is automatically triggered whenever changes are pushed to the repository.
 
-# Run pipeline
-python src/main.py
-</code> </pre>
+Alternatively, the workflow can also be triggered manually:
+
+    Go to the Actions tab on GitHub.
+
+    Select "AIAP Assessment 2" from the list.
+
+    Click "Run workflow" to execute it.
 
 ---
 
@@ -66,28 +68,53 @@ GitHub Actions Workflow (.yml)
 
 ## 📈 EDA Summary (From eda.ipynb)
 
-    Key Summary:
+🔍 Dataset Overview
 
-    - There are 41188 rows and 12 columns
-    - The data type for age is object. Numerical 
-    - The 12 unique values for 'Occupation' are 'technician', 'blue-collar', 'admin.', 'housemaid', 'retired', 'services', 'entrepreneur', 'unemployed', 'management', 'self-employed', 'student' and 'unknown'
-    - The 4 unique values for 'Marital Status' are 'married', 'divorced', 'single' and 'unknown'
-    - The 8 unique values for 'Education' are 'illiterate', 'basic.4y', 'basic.6y', 'basic.9y', 'high.school', 'professional.course', 'university.degree' and 'unknown'
-    - The 4 unqiue values for 'Credit Default' are 'yes', 'no' and 'None'
-    - The 4 unqiue values for 'Housing Loan' are 'yes', 'no' and 'None'
-    - The 4 unqiue values for 'Personal Loan' are 'yes', 'no' and 'None'
-    - The 4 unqiue values for 'Contact Method' are 'cellular', 'Cell', 'telephone' and 'Telephone'
-    - The 2 unqiue values for 'Subscription Status' are 'yes' and 'no'
+    Shape: 41,188 rows × 12 columns
 
-    - The dataset is imbalanced with more 'Subscription Status' of 'no'. 
-      There are 36548 records of 'no' and 4640 records of 'yes'.
-    - The dataset also contains a higher proportion of blue-collar workers, technicians and admin.
-    - 'Campaign Calls' contains negative values. Could be data entry error.
-    - There are outliers in the distribution of 'Age' with a significant portion being above 130 years old.
+    Age column: Stored as object type (string), though it should be numeric
 
-    These findings guided:
-    Feature engineering (data cleaning, transformation and encoding/mapping for categorical variables).
-    
+    Target Imbalance:
+
+        'Subscription Status' is imbalanced
+
+        'no': 36,548 records
+
+        'yes': 4,640 records
+
+🧠 Categorical Feature Summary
+
+| Feature             | Unique Values                                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Occupation          | `technician`, `blue-collar`, `admin.`, `housemaid`, `retired`, `services`, `entrepreneur`, `unemployed`, `management`, `self-employed`, `student`, `unknown` |
+| Marital Status      | `married`, `divorced`, `single`, `unknown`                                                                                                                   |
+| Education Level     | `illiterate`, `basic.4y`, `basic.6y`, `basic.9y`, `high.school`, `professional.course`, `university.degree`, `unknown`                                       |
+| Credit Default      | `yes`, `no`, `None`                                                                                                                                          |
+| Housing Loan        | `yes`, `no`, `None`                                                                                                                                          |
+| Personal Loan       | `yes`, `no`, `None`                                                                                                                                          |
+| Contact Method      | `cellular`, `Cell`, `telephone`, `Telephone`                                                                                                                 |
+| Subscription Status | `yes`, `no`                                                                                                                                                  |
+
+⚠️ Data Quality Observations
+
+    Outliers: Some Age values exceed 130 years — likely data entry errors
+
+    Campaign Calls: Contains negative values — likely erroneous
+
+    Inconsistent Capitalisation: In Contact Method (Cell vs cellular, etc.)
+
+🛠️ Impact on Feature Engineering
+
+These findings informed the following preprocessing steps:
+
+    Type conversions (e.g. converting Age to numeric)
+
+    Handling missing and inconsistent values
+
+    Encoding categorical variables for modeling
+
+    Outlier detection and cleanup
+
 ---
 
 ## 🔧 Feature Processing Summary
