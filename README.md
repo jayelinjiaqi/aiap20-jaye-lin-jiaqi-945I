@@ -32,9 +32,9 @@ Project root folder: `aiap20-jaye-lin-jiaqi-945I`
 
 The pipeline is automatically triggered whenever changes are pushed to the repository.
 
-Alternatively, the workflow can also be triggered manually:
+Alternatively, the workflow can also be triggered manually by:
 
-    Go to the Actions tab on GitHub.
+    Going to the Actions tab on GitHub.
 
     Select "AIAP Assessment 2" from the list.
 
@@ -127,56 +127,7 @@ These findings informed the following preprocessing steps:
 |---------------------------|-----------------------------------------------------------------------------|
 | `Contact Method`          | Standardized `Telephone` to `telephone`, `Cell` to `cellular`               |
 
-### 🔢 Feature Encoding Mapping
-
-#### ✅ Binary Encodings
-
-| Feature               | Original Value          | Encoded Value   |
-|-----------------------|-------------------------|-----------------|
-| Housing Loan          | `yes`                   | `1`             |
-|                       | `no`                    | `0`             |
-|                       | `None` / `'unknown'`    | `-1`            |
-| Personal Loan         | `yes`                   | `1`             |
-|                       | `no`                    | `0`             |
-|                       | `None` / `'unknown'`    | `-1`            |
-| Subscription Status   | `yes`                   | `1`             |
-|                       | `no`                    | `0`             |
-| Credit Default        | `yes`                   | `1`             |
-|                       | `no`                    | `0`             |
-|                       | `'unknown'`             | `-1`            |
-
-#### ☎️ Contact Method Mapping
-
-| Original Value   | Normalized Value   | Encoded Value |
-|------------------|--------------------|---------------|
-| `'Telephone'`    | `'telephone'`      | `1`           |
-| `'Cell'`         | `'cellular'`       | `2`           |
-
-#### 🧑 Occupation Mapping
-
-| Original Value         | Encoded Value |
-|------------------------|---------------|
-| `'technician'`         | `1`           |
-| `'blue-collar'`        | `2`           |
-| `'admin.'`             | `3`           |
-| `'housemaid'`          | `4`           |
-| `'retired'`            | `5`           |
-| `'services'`           | `6`           |
-| `'entrepreneur'`       | `7`           |
-| `'unemployed'`         | `8`           |
-| `'management'`         | `9`           |
-| `'self-employed'`      | `10`          |
-| `'student'`            | `11`          |
-| `'unknown'`            | `-1`          |
-
-#### 💍 Marital Status Mapping
-
-| Original Value   | Encoded Value |
-|------------------|---------------|
-| `'married'`      | `1`           |
-| `'divorced'`     | `2`           |
-| `'single'`       | `3`           |
-| `'unknown'`      | `-1`          |
+### 🔢 Feature Encoding/Mapping
 
 #### 🎓 Education Level Mapping
 
@@ -197,6 +148,38 @@ These findings informed the following preprocessing steps:
 |----------------|----------------------------|
 | `999`          | `-1`                       |
 | All others     | Original value (unchanged) |
+
+#### ✅ Binary Encodings
+
+| Feature               | Original Value          | Encoded Value   |
+|-----------------------|-------------------------|-----------------|
+| Housing Loan          | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `None` / `'unknown'`    | `-1`            |
+| Personal Loan         | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `None` / `'unknown'`    | `-1`            |
+| Subscription Status   | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+| Credit Default        | `yes`                   | `1`             |
+|                       | `no`                    | `0`             |
+|                       | `'unknown'`             | `-1`            |
+
+#### ☎️ Contact Method, 🧑 Occupation and 💍 Marital Status Encoding
+
+The following categorical columns are one-hot encoded:
+
+- **Occupation**
+- **Marital Status**
+- **Contact Method**
+
+The `pd.get_dummies()` function is used to convert the categorical variables into binary (0 or 1) columns, where each category is represented by a separate column.
+
+### Steps:
+
+1. **Occupation**: The `Occupation` column is one-hot encoded with a prefix `occupation_`.
+2. **Marital Status**: The `Marital Status` column is one-hot encoded with a prefix `marital_status_`.
+3. **Contact Method**: The `Contact Method` column is one-hot encoded with a prefix `contact_method_`.
 
 ---
 
