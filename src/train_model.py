@@ -61,16 +61,8 @@ def evaluate_ensemble(models, X_test, y_test):
     # Weighted average
     ensemble_proba = (0.5 * preds_lr) + (0.25 * preds_rf) + (0.25 * preds_knn)
     
-    # Tune threshold using F1 score
-    precisions, recalls, thresholds = precision_recall_curve(y_test, ensemble_proba)
-    f1_scores = 2 * (precisions * recalls) / (precisions + recalls + 1e-6)
-    best_idx = np.argmax(f1_scores)
-    best_threshold = thresholds[best_idx]
-    print(f"\n[Optimal Threshold for Best F1: {best_threshold:.4f}]")
-
     # Threshold to get binary predictions
-    #ensemble_preds = (ensemble_proba >= 0.5).astype(int)
-    ensemble_preds = (ensemble_proba >= best_threshold).astype(int)
+    ensemble_preds = (ensemble_proba >= 0.5).astype(int)
 
     print(f"\n--- Evaluation: Weighted Ensemble (LR=50%, RF=25%, KNN=25%) ---")
     print('AUC-ROC:', roc_auc_score(y_test, ensemble_proba))
